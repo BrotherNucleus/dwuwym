@@ -15,9 +15,9 @@ public class tileObject extends Object {
          }
          //second pair of numbers here must be the size of the texture
          vertex(0, 0, 0, 0);
-         vertex(size.x, 0, 50, 0);
-         vertex(size.x, size.y, 50, 50);
-         vertex(0, size.y, 0, 50);
+         vertex(size.x, 0, 25, 0);
+         vertex(size.x, size.y, 25, 25);
+         vertex(0, size.y, 0, 25);
        endShape();
   }
 }

@@ -34,11 +34,11 @@ public class mapInterpreter {
         if (Oy < 1) {
           Oy = 0;
         }
-        if (Ox > 24) {
-          Ox = 22;
+        if (Ox > int(strMap[0].toCharArray().length) - 4) {
+          Ox = int(strMap[0].toCharArray().length - 4);
         }
-        if (Oy > 14) {
-          Oy = 12;
+        if (Oy > int(strMap.length) - 4) {
+          Oy = int(strMap.length - 4);
         }
         pushMatrix();
           for(int y = Oy; y < Oy + 4; y++) {
@@ -95,10 +95,10 @@ public class mapInterpreter {
   public void loadMap() {
     pushMatrix();
     translate(-size, 0);
-    for(int i = int(cameraCenter.y - 7); i < cameraCenter.y + 8; i++) {
+    for(int i = 0; i < strMap.length; i++) {
       char[] line = strMap[i].toCharArray();
       pushMatrix();
-      for(int b = int(cameraCenter.x - 12); b < cameraCenter.x + 14; b++) {
+      for(int b = 0; b < line.length; b++) {
         isTileTextured = true;
         char type = line[b];
         pos.x = size;

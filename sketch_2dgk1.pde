@@ -15,11 +15,15 @@ PVector cameraCenter;
 
 PVector bgColor;
 
+PVector center;
+
 Object[] objects;
+
+cameraController ctrl;
 
 void setup()
 {
-  size(1280, 720, P2D);
+  size(1280, 720, P3D);
   noStroke();
   position = new PVector(100, 220);
   size = new PVector(120, 120);
@@ -31,16 +35,22 @@ void setup()
   objects = new Object[] {object, object2};
   bgColor = new PVector(152,190,100);
   map = new mapInterpreter("map.txt", cameraCenter, objects, bgColor);
-  print(cameraCenter.x);
-  print(cameraCenter.y);
-  map.loadMap();
+  center = new PVector(1280/2, 720/2);
+  ctrl = new cameraController(center, object);
+  background(152,190,100);
+  pushMatrix();
+    scale(0.5);
+    map.loadMap();
+   popMatrix();
+   print(center.x - object.position.x);
 }
 
 void draw(){
-  //background(152,190,100);
+  scale(0.5);
   map.loadPartially();
   object.display();
   object2.display();
+  ctrl.drawSquareOnfollow();
 }
 
 void keyPressed() {

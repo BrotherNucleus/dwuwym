@@ -30,6 +30,7 @@ public class mapInterpreter {
         int Oy = floor(objects[i].position.y / size);
         if (Ox < 1) {
           Ox = 0;
+          print(strMap.length);
         }
         if (Oy < 1) {
           Oy = 0;
@@ -55,8 +56,8 @@ public class mapInterpreter {
                   pos.y = 0;
                 }
                 String path = readType(type);
-                tileObject tile = new tileObject(pos, false, path, sizeV, bg);
-                tile.display();
+                  tileObject tile = new tileObject(pos, false, path, sizeV, bg);
+                  tile.display();
                 first = false;
               }
               
@@ -87,6 +88,7 @@ public class mapInterpreter {
               break;
           default:
             path = " ";
+            isTileTextured = false;
           break;
         }
         return path;
@@ -94,6 +96,7 @@ public class mapInterpreter {
  
   
   public void loadMap() {
+    background(152,190,100);
     pushMatrix();
     translate(-size, 0);
     for(int i = 0; i < strMap.length; i++) {
@@ -105,8 +108,12 @@ public class mapInterpreter {
         pos.x = size;
         pos.y = 0;
         String path = readType(type);
-        tileObject tile = new tileObject(pos, false, path, sizeV, bg);
-        tile.display();
+        if(isTileTextured){
+          tileObject tile = new tileObject(pos, false, path, sizeV, bg);
+          tile.display();
+        } else {
+          translate(size, 0);
+        }
       }
       popMatrix();
       translate(0, size);

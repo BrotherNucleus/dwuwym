@@ -2,6 +2,7 @@ public class Object {
  public PVector position;
   public PVector size;
   public float speed = 0;
+  public float speedY = 0;
   public float targetSpeed = 5;
   public boolean moves;
   PImage img;

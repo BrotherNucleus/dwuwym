@@ -65,6 +65,14 @@ void keyPressed() {
     object.pressKey('A');
     print("A");
   }
+   else if(keyCode == 'S') {
+    object.pressKey('S');
+    print("S");
+  }
+    else if(keyCode == 'W') {
+    object.pressKey('W');
+    print("W");
+  }
   print(" Key\n");
 }
 
@@ -77,6 +85,14 @@ void keyReleased() {
    else if(keyCode == 'A') {
     object.releaseKey('A');
     print("A");
+  }
+    else if(keyCode == 'S') {
+    object.releaseKey('S');
+    print("S");
+  }
+  else if(keyCode == 'W') {
+    object.releaseKey('W');
+    print("W");
   }
   print(" Key\n");
 }

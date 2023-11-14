@@ -5,6 +5,8 @@ public class PObjectK extends Object {
   private boolean moveLeft = false;
   private boolean movedLeft = false;
   private boolean movedRight = false;
+  private boolean moveDown = false;
+  private boolean moveUp = false;
   private float smooth = 0.2;
   
     public PObjectK(PVector pos, boolean isMoving, String path, PVector s) {
@@ -40,6 +42,14 @@ public class PObjectK extends Object {
         moveLeft = true;
         break;
       }
+      case 'S' : {
+        moveDown = true;
+       break;  
+     }
+      case 'W' : {
+        moveUp = true;
+       break;  
+     }
     }
   }
   
@@ -53,6 +63,14 @@ public class PObjectK extends Object {
         moveLeft = false;
         break;
       }
+      case 'S' : {
+        moveDown = false;
+       break;  
+     }
+      case 'W' : {
+        moveUp = false;
+       break;  
+     }
     }
   }
   
@@ -72,7 +90,7 @@ public class PObjectK extends Object {
       if(speed > 0) {
         speed -= speed*0.2;
       }
-      if(abs(speed - prevSpeed) < 0.01) {
+      if(abs(speed - prevSpeed) < 0.11) {
         speed = 0;
         movedRight = false;
       }
@@ -89,7 +107,7 @@ public class PObjectK extends Object {
        if(speed < 0) {
         speed -= speed*0.2;
       }
-      if(abs(speed - prevSpeed) < 0.01) {
+      if(abs(speed - prevSpeed) < 0.11) {
         speed = 0;
         movedLeft = false;
       }
@@ -106,10 +124,24 @@ public class PObjectK extends Object {
       speed = targetSpeed*(1-smooth) + speed*smooth;
     } else {
       speed -= speed*smooth;
-      if(abs(speed) < 0.01) {
+      if(abs(speed) < 0.11) {
         speed = 0;
       }
     }
+    
+    if(moveDown) {
+      speedY = targetSpeed*(1-smooth) + speedY*smooth;
+    } else if(moveUp) {
+      speedY = -1*targetSpeed*(1-smooth) + speedY*smooth;
+    }
+    else {
+      speedY -= speedY*smooth;
+        if(abs(speedY) < 0.11) {
+          speedY = 0;
+        }
+      }
     position.x += speed;
+    position.y += speedY;
+    
   }
 }

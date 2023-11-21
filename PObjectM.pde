@@ -3,14 +3,19 @@ public class PObjectM extends Object {
   
     private boolean moveRight = false;
   private boolean moveLeft = false;
+  private boolean moveUp = false;
+  private boolean moveDown = false;
   private boolean movedLeft = false;
   private boolean movedRight = false;
   private float smooth = 0.2;
   private int prevMouseX = 0;
   private int prevMouseY = 0;
-    public PObjectM(PVector pos, boolean isMoving, String path, PVector s) {
+  private PVector camCenter;
+    public PObjectM(PVector pos, boolean isMoving, String path, PVector s, PVector cntr) {
       super(pos, isMoving, path, s);
+      camCenter = cntr;
     }
+    
     
           public void display() {
     if(moves) {
@@ -33,15 +38,55 @@ public class PObjectM extends Object {
   }
   
   public void LorRMove() {
-    if(mouseX > position.x + size.x) {
-      moveRight = true;
-      moveLeft = false;
-    } else if (mouseX < position.x) {
-      moveLeft = true;
-      moveRight = false;
+    float n = position.x - camCenter.x;
+    float r = mouseX - width/2;
+    float u = position.y - camCenter.y;
+    float m = mouseY - height/2;
+    if(n > 0) {
+      if(r*skl > n + size.x) {
+        moveRight = true;
+        moveLeft = false;
+      } else if (r*skl < n) {
+        moveRight = false;
+        moveLeft = true;
+      } else {
+        moveRight = false;
+        moveLeft = false;
+       }
+       
+      if (m*skl > u + size.y) {
+        moveUp = true;
+        moveDown = false;
+      } else if (m*skl < u) {
+        moveUp = false;
+        moveDown = true;
+      } else {
+        moveUp = false;
+        moveDown = false;
+      }
+       
     } else {
-      moveLeft = false;
-      moveRight = false;
+      if(r < n) {
+        moveRight = false;
+        moveLeft = true;
+      } else if (r > n + size.x) {
+        moveRight = true;
+        moveLeft = false;
+      } else {
+        moveRight = false;
+        moveLeft = false;
+       }
+       
+      if (m < u) {
+        moveUp = false;
+        moveDown = true;
+      } else if (m > u + size.y) {
+        moveUp = true;
+        moveDown = false;
+      } else {
+        moveUp = false;
+        moveDown = false;
+      }
     }
   }
   
@@ -99,7 +144,24 @@ public class PObjectM extends Object {
         speed = 0;
       }
     }
+    
+    if(moveUp) {
+      speedY = targetSpeed*(1-smooth) + speedY*smooth;
+    }
+    else if(moveDown) {
+      speedY = -1*targetSpeed*(1-smooth) + speedY*smooth;
+    } else {
+      speedY -= speedY*smooth;
+      if(abs(speedY) < 0.01) {
+        speedY = 0;
+      }
+    }
+    if(!stopX) {
     position.x += speed;
+    }
+    if(!stopY){
+    position.y += speedY;
+    }
     logMouse();
   }
   

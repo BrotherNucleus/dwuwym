@@ -13,23 +13,23 @@ class cameraController {
   public void drawSquareOnfollow() {
     if(pos.x > flw.position.x + 545 && pos.x > 720) {
       pos.x += flw.speed;
-      mp.loadMap();
+      mp.load();
       //print("forward");
     } else if (pos.x < flw.position.x - 450) {
       pos.x += flw.speed;
-      mp.loadMap();
+      mp.load();
     }
     if(pos.y - flw.position.y > yDiff + 2 || pos.y - flw.position.y < yDiff - 2) {
       print();
       pos.y += flw.speedY;
-      mp.loadMap();
+      mp.load();
     }
       //print("back");
     drawSquare();
   }
   
   public void CameraFollowConst() {
-    mp.loadMap();
+    mp.load();
     camera(flw.position.x, pos.y, 626, flw.position.x, pos.y, 0, 0, 1.0, 0);
   }
   

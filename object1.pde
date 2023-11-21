@@ -6,6 +6,9 @@ public class Object {
   public float targetSpeed = 5;
   public boolean moves;
   PImage img;
+  public boolean stopX = false;
+  public boolean stopY = false;
+  float skl = 1;
   
   public Object(PVector pos, boolean isMoving, String path, PVector s)
   {
@@ -17,6 +20,26 @@ public class Object {
       position = pos;
       moves = isMoving;
       size = s;
+  }
+  
+  public void display() {
+  
+  }
+  
+  public void stopX() {
+    if(stopX) {
+      stopX = false;
+    } else {
+      stopX = true;
+    }
+  }
+  
+    public void stopY() {
+    if(stopY) {
+      stopY = false;
+    } else {
+      stopY = true;
+    }
   }
   
   

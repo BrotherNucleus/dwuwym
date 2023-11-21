@@ -7,6 +7,7 @@ public class mapInterpreter {
   PVector centerCamera;
   Object[] objs;
   PVector bg;
+  Object[][] tileList;
   
   public mapInterpreter(String path, PVector center, Object[] objects, PVector bgColor) {
     strMap = loadStrings(path);
@@ -14,6 +15,8 @@ public class mapInterpreter {
     centerCamera = center;
     objs = objects;
     bg = bgColor;
+    
+    tileList = new Object[strMap.length][strMap[0].toCharArray().length];
   }
   
   public void logTxtMap() {
@@ -22,6 +25,29 @@ public class mapInterpreter {
     }
   }
   
+  public void load() {
+    background(152,190,100);
+    pushMatrix();
+    translate(-size, 0);
+    for(int i = 0; i < tileList.length; i++) {
+      Object[] row = tileList[i];
+      pushMatrix();
+      for(int b = 0; b < row.length; b++) {
+       Object tile = row[b];
+        pos.x = size;
+        pos.y = 0;
+        if(tile != null){
+          tile.display();
+        } else {
+          translate(size, 0);
+        }
+      }
+      popMatrix();
+      translate(0, size);
+    }
+    popMatrix();
+  }
+  // legacy code
   public void loadPartially() {
     boolean first = true;
     for(int i = 0; i < objects.length; i++) {
@@ -110,9 +136,11 @@ public class mapInterpreter {
         String path = readType(type);
         if(isTileTextured){
           tileObject tile = new tileObject(pos, false, path, sizeV, bg);
-          tile.display();
+          //tile.display();
+          tileList[i][b] = tile;
         } else {
           translate(size, 0);
+          tileList[i][b] = null;
         }
       }
       popMatrix();

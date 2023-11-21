@@ -50,7 +50,7 @@ class twoPCameraController {
     float odlX = abs(p1.position.x - p2.position.x);
     float odlY = abs(p1.position.y - p2.position.y);
     boolean isXBig = odlX > 880*skl;
-    boolean isYBig = odlY > 520*skl;
+    boolean isYBig = odlY > 570*skl;
     boolean isXSmall = odlX < 500*skl;
     boolean isYSmall = odlY < 300*skl;
     if(isXBig) {
@@ -59,10 +59,10 @@ class twoPCameraController {
     } else if(isYBig) {
       skl+= 0.02;
       p2.skl += 0.02;
-    } else if(isXSmall && skl > 1.0 && odlY < 400) {
+    } else if(isXSmall && skl > 1.0 && odlY < 400*skl) {
       skl -= 0.02;
       p2.skl -= 0.02;
-    } else if(isYSmall && skl > 1.0 && odlX < 750) {
+    } else if(isYSmall && skl > 1.0 && odlX < 750*skl) {
       skl -= 0.02;
       p2.skl -= 0.02;
     }

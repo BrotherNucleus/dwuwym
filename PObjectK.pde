@@ -117,31 +117,38 @@ public class PObjectK extends Object {
   }
   
       private void controller() {
-    if(moveLeft) {
-      speed = -1*targetSpeed*(1-smooth) + speed*smooth;
-    }
-    else if(moveRight) {
-      speed = targetSpeed*(1-smooth) + speed*smooth;
+    if((speed > 0 && stopRight) || (speed < 0 && stopLeft)) {
+      speed = 0;
     } else {
-      speed -= speed*smooth;
-      if(abs(speed) < 0.11) {
-        speed = 0;
+      if(moveLeft) {
+        speed = -1*targetSpeed*(1-smooth) + speed*smooth;
       }
-    }
-    
-    if(moveDown) {
-      speedY = targetSpeed*(1-smooth) + speedY*smooth;
-    } else if(moveUp) {
-      speedY = -1*targetSpeed*(1-smooth) + speedY*smooth;
-    }
-    else {
-      speedY -= speedY*smooth;
-        if(abs(speedY) < 0.11) {
-          speedY = 0;
+      else if(moveRight) {
+        speed = targetSpeed*(1-smooth) + speed*smooth;
+      } else {
+        speed -= speed*smooth;
+        if(abs(speed) < 0.11) {
+          speed = 0;
         }
       }
-    position.x += speed;
-    position.y += speedY;
+    }
     
+    if((speedY > 0 && stopDown) || (speedY < 0 && stopUp)) {
+      speedY = 0;
+    } else {
+      if(moveDown) {
+        speedY = targetSpeed*(1-smooth) + speedY*smooth;
+      } else if(moveUp) {
+        speedY = -1*targetSpeed*(1-smooth) + speedY*smooth;
+      }
+      else {
+        speedY -= speedY*smooth;
+          if(abs(speedY) < 0.11) {
+            speedY = 0;
+          }
+        }
+    }
+        position.x += speed;
+        position.y += speedY;  
   }
 }

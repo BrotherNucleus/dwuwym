@@ -10,7 +10,6 @@ public class PObjectM extends Object {
   private float smooth = 0.2;
   private int prevMouseX = 0;
   private int prevMouseY = 0;
-  private PVector camCenter;
     public PObjectM(PVector pos, boolean isMoving, String path, PVector s, PVector cntr) {
       super(pos, isMoving, path, s);
       camCenter = cntr;
@@ -66,10 +65,10 @@ public class PObjectM extends Object {
       }
        
     } else {
-      if(r < n) {
+      if(r*skl < n) {
         moveRight = false;
         moveLeft = true;
-      } else if (r > n + size.x) {
+      } else if (r*skl > n + size.x) {
         moveRight = true;
         moveLeft = false;
       } else {
@@ -77,10 +76,10 @@ public class PObjectM extends Object {
         moveLeft = false;
        }
        
-      if (m < u) {
+      if (m*skl < u) {
         moveUp = false;
         moveDown = true;
-      } else if (m > u + size.y) {
+      } else if (m*skl > u + size.y) {
         moveUp = true;
         moveDown = false;
       } else {

@@ -6,9 +6,15 @@ public class Object {
   public float targetSpeed = 5;
   public boolean moves;
   PImage img;
+  public boolean stopLeft = false;
+  public boolean stopRight = false;
+  public boolean stopUp = false;
+  public boolean stopDown = false;
+  
   public boolean stopX = false;
   public boolean stopY = false;
   float skl = 1;
+  public PVector camCenter;
   
   public Object(PVector pos, boolean isMoving, String path, PVector s)
   {
@@ -27,22 +33,19 @@ public class Object {
   }
   
   public void stopX() {
-    if(stopX) {
-      stopX = false;
-    } else {
-      stopX = true;
-    }
+    stopX = true;
   }
   
     public void stopY() {
-    if(stopY) {
-      stopY = false;
-    } else {
-      stopY = true;
-    }
+    stopY = true;
   }
   
+    public void startX() {
+      stopX = false;
+    }
   
-
+    public void startY() {
+      stopY = false;
+    }
   
 }
